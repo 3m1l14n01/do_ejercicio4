@@ -1,12 +1,23 @@
+<!DOCTYPE html>
 <html>
-<head><title>Resultados</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Resultados</title>
+</head>
 <body>
-    <h1>Resultados del procesamiento</h1>
-    <pre id="contenido"></pre>
-    <script>
-        fetch("resultado.txt")
-            .then(r => r.text())
-            .then(t => document.getElementById("contenido").innerText = t);
-    </script>
+  <h1>Resultados del procesamiento</h1>
+
+  <!-- Bloque que usa fetch para mostrar resultado.txt desde el bucket S3 -->
+  <pre id="contenido"></pre>
+  <script>
+    fetch("resultado.txt")
+      .then(r => r.text())
+      .then(t => document.getElementById("contenido").innerText = t)
+      .catch(err => document.getElementById("contenido").innerText = "Error al cargar resultados desde S3.");
+  </script>
+
+  <!-- Bloque que incrusta directamente resultado.txt desde la instancia EC2 -->
+  <h2>Resultados en EC2</h2>
+  <iframe src="http://18.190.154.220/resultado.txt" width="100%" height="400"></iframe>
 </body>
 </html>
